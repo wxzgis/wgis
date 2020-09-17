@@ -1,10 +1,10 @@
 <template>
   <a-layout class="main">
     <a-layout-content class="header">
-      <a-tabs class="tabs" type="card">
+      <a-tabs class="tabs" type="card" :tabBarGutter="15">
         <a-tab-pane key="1">
           <template v-slot:tab><AimOutlined />地 图</template>
-          1
+          <wxz-tabs-map></wxz-tabs-map>
         </a-tab-pane>
         <a-tab-pane key="2">
           <template v-slot:tab><AimOutlined />插 入</template>
@@ -29,33 +29,49 @@
 </template>
 
 <script>
-import { ref, reactive, getCurrentInstance, onMounted } from 'vue';
-import { loadModules } from 'esri-loader'
-import { AimOutlined } from '@ant-design/icons-vue';
+import { ref, reactive, onMounted } from 'vue'
+import { AimOutlined } from '@ant-design/icons-vue'
+import gis from './hooks/gis'
+import WxzTabsMap from './components/tabs/Map'
 export default {
   name: '',
   components: {
-    AimOutlined
+    AimOutlined,
+    'wxz-tabs-map': WxzTabsMap,
   },
   setup(prop, { attrs, slots, emit }) {
-    const _app = getCurrentInstance().ctx;
+
+    const initGIS = async () => {
+      
+      const { createMap, createMapView } = WXZ.ESRI.Utils;
+
+      await gis.setGIS({
+        mapOptions: {
+          basemap: 'topo-vector'
+        },
+        viewOptions: {
+          container: 'view',
+          center: [120, 10],
+          zoom: 3
+        }
+      });
+
+      return;
+    }
 
     onMounted(() => {
-      loadModules(['esri/Map', 'esri/views/MapView'], { css: true })
-        .then(([ArcGISMap, MapView]) => {
-          const map = new ArcGISMap({
-            basemap: 'topo-vector'
-          });
-
-          const view = new MapView({
-            container: 'view',
-            map: map,
-            center: [-118, 34],
-            zoom: 8
-          });
-          view.ui.components = [];
-        });
-    })
+      initGIS().then(() => {
+        WXZ.Message.show({
+          title: 'Welcome To WGIS!'
+        }, 'success');
+      }).catch(err => {
+        console.log(err);
+        WXZ.Message.show({
+          title: '地图加载失败',
+          content: '建议重新打开或联系开发者'
+        }, 'error');
+      })
+    });
 
     return {
       
@@ -83,5 +99,11 @@ export default {
 }
 ::v-deep .ant-tabs-bar {
   margin: 0;
+}
+::v-deep .ant-tabs-content {
+  height: calc(100% - 40px);
+}
+::v-deep  .ant-tabs-tabpane {
+  height: 100%;
 }
 </style>
