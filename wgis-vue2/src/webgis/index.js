@@ -37,6 +37,32 @@ export default async () => {
       const zoom = this.zoom + number;
       this.goTo({ zoom });
     }
+    MapView.prototype.loadEvent = function(type = 'default') {
+      switch (type) {
+        case 'default':
+          this.on("drag", evt => evt.stopPropagation ());
+          this.on('pointer-down', evt => {
+            let pt = this.toMap({ x: evt.x, y: evt.y });
+            if(evt.button === 1) {
+              document.getElementById('view').style.cursor = `url('./img/cur/paning.cur'), auto`;
+              const pointerMove = this.on('pointer-move', evt2 => {
+                const pt2 = this.toMap({ x: evt2.x, y: evt2.y });
+                this.center = {
+                  x: this.center.x - (pt2.x - pt.x),
+                  y: this.center.y - (pt2.y - pt.y),
+                  spatialReference: this.spatialReference,
+                }
+              });
+              const pointerUp = this.on('pointer-up', _ => {
+                document.getElementById('view').style.cursor = 'default';
+                pointerMove.remove();
+                pointerUp.remove();
+              });
+            }
+          });
+          break;
+      }
+    }
   }
 
   function extMap() {

@@ -55,7 +55,11 @@ export default {
         zoom: 3,
         center: [110, 10],
         ui: { components: [] },
+        constraints: {
+          rotationEnabled: false
+        }
       });
+      view.loadEvent();
 
       Object.assign(this.$webgis, {
         map, view
