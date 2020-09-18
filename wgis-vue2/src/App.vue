@@ -34,54 +34,37 @@ export default {
   components: {
     'wxz-tab-map-module': () => import('./components/tabs/MapModule')
   },
-  provide() {
-    const { Map: ArcGISMap, MapView } = this.$esri;
-    const { WebTileLayer } = this.$esri.Layers;
-
-    const map = new ArcGISMap({
-      basemap: {
-        baseLayers: [new WebTileLayer({
-          urlTemplate: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer/tile/{level}/{row}/{col}'
-        })]
-      }
-    });
-    const view = new MapView({
-      container: 'view',
-      map,
-      zoom: 3,
-      center: [110, 10]
-    })
-    console.log(map, view);
-    return {
-      map,
-      view
-    }
-  },
   data() {
     return {
       
     }
   },
   methods: {
-    
+    async init() {
+      const { Map: ArcGISMap, MapView } = this.$esri;
+      const { WebTileLayer } = this.$esri.Layers;
+
+
+      const map = new ArcGISMap();
+      map.setBasemap({
+        ...this.$webgis.basemaps[0]
+      });
+      const view = new MapView({
+        container: 'view',
+        map,
+        zoom: 3,
+        center: [110, 10],
+        ui: { components: [] },
+      });
+
+      Object.assign(this.$webgis, {
+        map, view
+      })
+
+    }
   },
   mounted() {
-    // const { Map: ArcGISMap, MapView } = this.$esri;
-    // const { WebTileLayer } = this.$esri.Layers;
-
-    // const map = new ArcGISMap({
-    //   basemap: {
-    //     baseLayers: [new WebTileLayer({
-    //       urlTemplate: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer/tile/{level}/{row}/{col}'
-    //     })]
-    //   }
-    // });
-    // const view = new MapView({
-    //   container: 'view',
-    //   map,
-    //   zoom: 3,
-    //   center: [110, 10]
-    // });
+    this.init()
   }
 }
 </script>

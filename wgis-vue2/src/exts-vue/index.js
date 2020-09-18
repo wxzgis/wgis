@@ -1,2 +1,3 @@
-import './Message/message'
-import './ESRI/esri'
+import './ajax/ajax'
+import './message/message'
+import './esri/esri'

@@ -1,0 +1,23 @@
+[
+  {
+    "key": "0",
+    "name": "彩色中文含兴趣点版中国基础地图",
+    "type": "WebTileLayer",
+    "url": "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer/tile/{level}/{row}/{col}"
+  },{
+    "key": "1",
+    "name": "灰色中文不含兴趣点版中国基础地图",
+    "type": "WebTileLayer",
+    "url": "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetGray/MapServer/tile/{level}/{row}/{col}"
+  },{
+    "key": "2",
+    "name": "蓝黑色中文不含兴趣点版中国基础地图",
+    "type": "WebTileLayer",
+    "url": "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{level}/{row}/{col}"
+  },{
+    "key": "3",
+    "name": "暖色中文不含兴趣点版中国基础地图",
+    "type": "WebTileLayer",
+    "url": "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer/tile/{level}/{row}/{col}"
+  }
+]

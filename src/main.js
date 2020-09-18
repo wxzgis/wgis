@@ -10,5 +10,15 @@ const app = createApp(App);
 import antdConf from './config/antd.conf'
 antdConf(app);
 
-
-app.use(router).mount('#app')
+WXZ.ESRI.Utils.load([
+  'esri/Map',
+  'esri/views/MapView',
+  'esri/layers/WebTileLayer',
+]).then(([
+  ArcGISMap, MapView, WebTileLayer
+]) => {
+  WXZ.ESRI.Map = ArcGISMap;
+  WXZ.ESRI.MapView = MapView;
+  WXZ.ESRI.Layers = { WebTileLayer };
+  app.use(router).mount('#app')
+})

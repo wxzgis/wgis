@@ -9,7 +9,7 @@
 import { ref, reactive, toRefs } from 'vue'
 import Box from '../base/box/Box'
 import BoxButton from '../base/box/boxitems/Button'
-import gis from '../../hooks/gis'
+import { map, view } from '../../hooks/gis'
 export default {
   name: 'Map',
   components: {
@@ -21,9 +21,8 @@ export default {
     
 
     const zoomIn = () => {
-      console.log(gis.view.zoom);
-      const view = toRefs(gis.view)
-      console.log(view)
+      console.log(view.value);
+      console.log(view.value.zoom);
     }
 
     return {

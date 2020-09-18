@@ -31,7 +31,7 @@
 <script>
 import { ref, reactive, onMounted } from 'vue'
 import { AimOutlined } from '@ant-design/icons-vue'
-import gis from './hooks/gis'
+import { map, view, setMap, setView } from './hooks/gis'
 import WxzTabsMap from './components/tabs/Map'
 export default {
   name: '',
@@ -43,18 +43,31 @@ export default {
 
     const initGIS = async () => {
       
-      const { createMap, createMapView } = WXZ.ESRI.Utils;
+      const { Map: ArcGISMap, MapView } = WXZ.ESRI;
+      const { WebTileLayer } = WXZ.ESRI.Layers;
 
-      await gis.setGIS({
-        mapOptions: {
-          basemap: 'topo-vector'
-        },
-        viewOptions: {
-          container: 'view',
-          center: [120, 10],
-          zoom: 3
+      const _map = reactive(new ArcGISMap({
+        basemap: {
+          baseLayers: [new WebTileLayer({
+            urlTemplate: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer/tile/{level}/{row}/{col}'
+          })]
         }
-      });
+      }));
+      console.log(_map); 
+      setMap(_map);
+      const _view = reactive(new MapView({
+        container: 'view',
+        map: _map,
+        zoom: 3,
+        center: [110, 10]
+      }));
+
+
+      console.log(_view);
+      setView(_view);
+      
+      // gis.map = map;
+      // gis.view = view;
 
       return;
     }
