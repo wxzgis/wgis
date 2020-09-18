@@ -1,8 +1,8 @@
 <template>
-  <a-dropdown class="box-item" :trigger="['click']">
-    <div class="ant-dropdown-link" @click="e => e.preventDefault()">
-      <img :src="img"><br>
-      {{name}}
+  <a-dropdown class="tool-item" :trigger="['click']">
+    <div @click="e => e.preventDefault()">
+      <img :src="img">
+    <div class="tool-item-name">{{name}}</div>
     </div>
     <a-menu slot="overlay">
       <a-menu-item v-for="(item, index) in items" :key="index" @click="item.onClick">
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'box-drop-down',
+  name: 'tool-item-drop-down',
   props: {
     img: { type: String },
     name: { type: String },
