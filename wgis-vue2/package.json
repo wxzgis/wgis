@@ -1,0 +1,28 @@
+{
+  "name": "wgis-vue2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "ant-design-vue": "^1.6.5",
+    "core-js": "^3.6.5",
+    "esri-loader": "^2.15.0",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1",
+    "vue": "^2.6.11",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
