@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "esri-loader": "^2.15.0",
     "vue": "^3.0.0",
-    "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
@@ -20,6 +20,8 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.2",
     "typescript": "~3.9.3"
   },
   "browserslist": [
