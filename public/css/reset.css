@@ -1,8 +1,0 @@
-html, body {
-  padding: 0;
-  margin: 0;
-}
-/* 去除地图黑边框 */
-.esri-view .esri-view-surface--inset-outline:focus::after {
-  outline: unset !important;
-}
