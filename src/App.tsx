@@ -1,15 +1,26 @@
 import { defineComponent } from 'vue'
-import View from './components/View'
-import '@/assets/style/app.scss'
+import MapView from './components/map-container/map-view'
+import TopToolBar from './components/top-container/top-tool-bar'
 
 export default defineComponent({
   components: {
-    View
+    'map-view': MapView,
+    'top-tool-bar': TopToolBar,
   },
   setup () {
-    return () => 
-      <div id="app">
-        <View class="view" />
-      </div>
+
+    const height = '150px' // 头部工具栏高度
+
+    return () =>  <>
+        <top-tool-bar height={ height } />
+        <div class="main-container"
+          style={{
+            height: `calc(100vh - ${height})`
+          }}
+        >
+          <map-view />
+        </div>
+      </>
+        
   }
 })

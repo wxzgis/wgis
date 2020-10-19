@@ -1,6 +1,9 @@
-const ARCGIS_API_URL : string = 'https://wuxizhe.fun/arcgisjs/api/4.15'
+import { useEsriUtils } from '@/hooks/esri'
+import { loadModules } from 'esri-loader'
 
-export const ESRI_CONFIG = {
+
+const ARCGIS_API_URL : string = 'https://wuxizhe.fun/arcgisjs/api/4.15'
+const ESRI_CONFIG = {
   url: `${ARCGIS_API_URL}/init.js`,
   css: `${ARCGIS_API_URL}/esri/themes/light/main.css`,
 }
@@ -31,4 +34,26 @@ export const VIEW_DEFAULT_OPTIONS = {
   ui: {
     components: []
   }
+}
+
+export const initEsri = function () {
+  return new Promise((resolve, reject) => {
+    loadModules([
+      'esri/Map',
+      'esri/views/MapView',
+      'esri/layers/WebTileLayer',
+    ], ESRI_CONFIG).then(([
+      ArcGISMap,
+      MapView,
+      WebTileLayer,
+    ]) => {
+      const { set } = useEsriUtils()
+      set({
+        ArcGISMap,
+        MapView,
+        WebTileLayer,
+      })
+      resolve()
+    }).catch(err => reject(err))
+  })
 }

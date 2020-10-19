@@ -1,6 +1,7 @@
 import {
   defineComponent,
-  getCurrentInstance,
+  ref,
+  reactive,
   onMounted,
 } from 'vue';
 import { useStore } from 'vuex'
@@ -8,6 +9,7 @@ import { VIEW_DEFAULT_OPTIONS } from '@/config/esri.conf'
 import { useEsri, useEsriUtils } from '@/hooks/esri';
 
 export default defineComponent({
+  name: 'map-view',
   setup () {
     const { ArcGISMap, MapView } = useEsri()
     const store = useStore()
@@ -15,18 +17,25 @@ export default defineComponent({
     const { createBasemap } = useEsriUtils()
 
     onMounted(() => {
-      const map = new ArcGISMap({
+      const map = reactive(new ArcGISMap({
         basemap: createBasemap('彩色中文含兴趣点版中国基础地图')
-      })
+      }));
 
-      const view = new MapView({
-        map, ...VIEW_DEFAULT_OPTIONS
-      })
+      console.log(map.basemap)
 
-      store.commit('setMapView', { map, view })
+      // const view = new MapView({
+      //   map, ...VIEW_DEFAULT_OPTIONS
+      // });
+
+      // store.commit('setMapView', { map, view })
     })
 
     return () => 
-      <div id="view-container"></div>
+      <div id="view-container"
+        style={{
+          height: 'inherit',
+        }} 
+        
+      />
   }
 })
